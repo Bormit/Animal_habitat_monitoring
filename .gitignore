@@ -1,0 +1,9 @@
+/venv/
+.idea
+/Parse/images/
+/Model/Train/hedgehog/
+/Model/Train/weasel/
+/Model/logs/train/
+/Model/logs/validation/
+/Model/animals-prediction-23.03.28/
+/Model/data/
