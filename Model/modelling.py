@@ -13,9 +13,12 @@ func_activate = 'softmax'
 # путь к директории для сохранения файлов
 SAVE_DIR = 'data'
 
+# путь к директории для сохранения модели
+SAVE_MODEL = 'Save_model'
+
 # Генерируем уникальное имя для модели
 date_today = datetime.datetime.now().date().strftime('%y.%m.%d')
-NAME = f"animals-prediction-{date_today}"
+MODEL_DIR_NAME = os.path.join(SAVE_MODEL, f"animals-prediction-{date_today}")
 
 # Создаем объект TensorBoard Callback для записи метрик и логов обучения во время обучения модели в Keras
 # и указываем дирректорию 'logs/' для записи логов.
@@ -62,8 +65,8 @@ try:
         model.fit(X, y, epochs=5, validation_split=0.1, batch_size=32, callbacks=[tensorboard])
 
         # Сохраняем обученную модель в файл
-        model.save(NAME)
-        print(f"The model was saved under the name '{NAME}'.model")
+        model.save(MODEL_DIR_NAME)
+        print(f"The model was saved under the name", f"animals-prediction-{date_today}")
 except IOError:
     print("Не удалось загрузить файлы X.pkl and y.pkl.")
 
