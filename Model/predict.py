@@ -12,9 +12,7 @@ MODEL_NAME = 'animals-prediction-23.03.30'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 
-# IMAGES_DIR = 'Parse\\images'
-#
-# IMAGES_NAME = '000001.jpg'
+IMAGES_NAME = "000001.jpg"
 
 # Определяется функция image, которая считывает изображение из указанного пути, изменяет его размер до 200x200 пикселей
 # и возвращает массив numpy.
@@ -27,11 +25,12 @@ def load_image(path):
 
 
 # Загружается предварительно обученная модель (model), которая будет использоваться для предсказания класса изображения.
-# название модели у вас можеть быть другой!
 model = keras.models.load_model(MODEL_PATH)
 
 # Указывается путь к изображению для которое надо распознать.
-image_path = os.path.join("C:", "C:\\Users\\user\\IDE_Projects\\Pycharm_Projects\\Animal_habitat_monitoring\\Parse\\images\\000002.jpg")
+image_path = os.path.join("C:\\",
+                          "Users\\user\\IDE_Projects\\Pycharm_Projects\\Animal_habitat_monitoring\\Parse\\images",
+                          IMAGES_NAME)
 
 # Выполняется предсказание класса изображения с помощью модели model и функции image для каждого изображения в
 # директории.
