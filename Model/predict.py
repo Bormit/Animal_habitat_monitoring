@@ -1,18 +1,23 @@
+import tempfile
+
+from flask import Flask, jsonify, request
 import os
 import cv2
 import keras
 import numpy as np
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
 
 # Создается список категорий (CATEGORIES), каждый элемент которого соответствует определенному классу животного.
 CATEGORIES = ['hedgehog', 'weasel']
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.03.30')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.04.25')
 
-MODEL_NAME = 'animals-prediction-23.03.30'
+MODEL_NAME = 'animals-prediction-23.04.25'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 
-IMAGES_NAME = "000001.jpg"
 
 # Определяется функция image, которая считывает изображение из указанного пути, изменяет его размер до 200x200 пикселей
 # и возвращает массив numpy.
@@ -27,20 +32,35 @@ def load_image(path):
 # Загружается предварительно обученная модель (model), которая будет использоваться для предсказания класса изображения.
 model = keras.models.load_model(MODEL_PATH)
 
-# Указывается путь к изображению для которое надо распознать.
-image_path = os.path.join("C:\\",
-                          "Users\\user\\IDE_Projects\\Pycharm_Projects\\Animal_habitat_monitoring\\Parse\\images",
-                          IMAGES_NAME)
 
-# Выполняется предсказание класса изображения с помощью модели model и функции image для каждого изображения в
-# директории.
-if not os.path.exists(image_path):
-    print(f"File {image_path} does not exist")
-else:
-    image_arr = load_image(image_path)
-    prediction = model.predict(image_arr)
-    predicted_class_index = prediction.argmax()
-    predicted_class_name = CATEGORIES[predicted_class_index]
-    # Результат предикта
-    print(f"Predicted class: {predicted_class_name}")
+@app.route('/predict', methods=['POST'])
+def predict():
 
+    # Получение файла из объекта запроса
+    photo = request.files.get('photo')
+    # Получение подписи из объекта запроса
+    signature = request.form.get('signature')
+
+    # Получение данных в формате JSON из запроса
+    # data = request.get_json()
+
+    # Сохранение файла во временный файл
+    filename = secure_filename(photo.filename)
+    temp_file_path = os.path.join(tempfile.gettempdir(), filename)
+    photo.save(temp_file_path)
+
+    # Выполняется предсказание класса изображения с помощью модели model и функции image для указанного изображения.
+    if not os.path.exists(temp_file_path):
+        return jsonify({'error': f"File {temp_file_path} does not exist"})
+    else:
+        image_arr = load_image(temp_file_path)
+        prediction = model.predict(image_arr)
+        predicted_class_index = prediction.argmax()
+        predicted_class_name = CATEGORIES[predicted_class_index]
+        # Результат предикта
+        print({'predicted_class': predicted_class_name})
+        return jsonify({'predicted_class': predicted_class_name})
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
