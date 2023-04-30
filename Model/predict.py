@@ -30,36 +30,62 @@ def load_image(path):
 
 
 # Загружается предварительно обученная модель (model), которая будет использоваться для предсказания класса изображения.
-model = keras.models.load_model(MODEL_PATH)
+try:
+    model = keras.models.load_model(MODEL_PATH)
+except Exception as e:
+    print(f"Error loading model: {str(e)}")
+    exit(1)
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-
-    # Получение файла из объекта запроса
+    # # Получение файла из объекта запроса
     photo = request.files.get('photo')
-    # Получение подписи из объекта запроса
+    # # Получение подписи из объекта запроса
     signature = request.form.get('signature')
-
-    # Получение данных в формате JSON из запроса
-    # data = request.get_json()
 
     # Сохранение файла во временный файл
     filename = secure_filename(photo.filename)
     temp_file_path = os.path.join(tempfile.gettempdir(), filename)
-    photo.save(temp_file_path)
+    # print({'signature': signature})
+    try:
+        with open(temp_file_path, 'wb') as f:
+            f.write(photo.read())
 
-    # Выполняется предсказание класса изображения с помощью модели model и функции image для указанного изображения.
-    if not os.path.exists(temp_file_path):
-        return jsonify({'error': f"File {temp_file_path} does not exist"})
-    else:
-        image_arr = load_image(temp_file_path)
-        prediction = model.predict(image_arr)
-        predicted_class_index = prediction.argmax()
-        predicted_class_name = CATEGORIES[predicted_class_index]
-        # Результат предикта
-        print({'predicted_class': predicted_class_name})
-        return jsonify({'predicted_class': predicted_class_name})
+        # Выполняется предсказание класса изображения с помощью модели model и функции image для указанного изображения.
+        if not os.path.exists(temp_file_path):
+            return jsonify({'error': f"File {temp_file_path} does not exist"}), 400
+        else:
+            image_arr = load_image(temp_file_path)
+            prediction = model.predict(image_arr)
+            predicted_class_index = prediction.argmax()
+            predicted_class_name = CATEGORIES[predicted_class_index]
+            # Результат предикта
+            print({'predicted_class': predicted_class_name})
+            return jsonify({"result": predicted_class_name})
+            # return jsonify({"result": "Hello "})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
+
+# @app.route('/users', methods=['POST'])
+# def getUser():
+#     return jsonify({"result": "1"})
+
+
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({'error': 'Bad request'}), 400
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Not found'}), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({'error': 'Internal server error'}), 500
 
 
 if __name__ == '__main__':
