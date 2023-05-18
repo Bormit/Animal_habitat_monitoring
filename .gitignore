@@ -1,11 +1,14 @@
 /venv/
 .idea
 /Model/Train/images/
-/Model/Train/hedgehog/
-/Model/Train/weasel/
+/Parse/images/hedgehog/
+/Parse/images/weasel/
 /Model/logs/train/
 /Model/logs/validation/
 /Model/data/
 /Parse/images/
 /Model/Save_model/
 /Model/Results_of_predicts/hedgehog_false.txt
+/Model/Train/hen/
+/Model/Train/horse/
+/Model/Train/squirrel/

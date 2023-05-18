@@ -10,11 +10,11 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # Создается список категорий (CATEGORIES), каждый элемент которого соответствует определенному классу животного.
-CATEGORIES = ['hedgehog', 'weasel']
+CATEGORIES = ['hen', 'horse', 'squirrel']
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.04.25')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.05.12')
 
-MODEL_NAME = 'animals-prediction-23.04.25'
+MODEL_NAME = 'animals-prediction-23.05.12'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 
@@ -59,11 +59,19 @@ def predict():
             image_arr = load_image(temp_file_path)
             prediction = model.predict(image_arr)
             predicted_class_index = prediction.argmax()
-            predicted_class_name = CATEGORIES[predicted_class_index]
-            # Результат предикта
-            print({'predicted_class': predicted_class_name})
-            return jsonify({"result": predicted_class_name})
-            # return jsonify({"result": "Hello "})
+            # Задайте пороговое значение для вероятности предсказания класса
+            threshold = 0.5
+
+            # Проверяем, что вероятность для всех классов меньше порогового значения
+            if all(p < threshold for p in prediction[0]):
+                return jsonify({"result": "No category matches"})
+
+            else:
+                predicted_class_name = CATEGORIES[predicted_class_index]
+                # Результат предикта
+                print({'predicted_class': predicted_class_name})
+                return jsonify({"result": predicted_class_name})
+                # return jsonify({"result": "Hello "})
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500

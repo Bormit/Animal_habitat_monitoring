@@ -27,7 +27,7 @@ parser.add_argument('--output-dir', type=str, default='.', help='output director
 args = parser.parse_args()
 
 # список категорий изображений
-CATEGORIES = ['hedgehog', 'weasel']
+CATEGORIES = ['hen', 'horse', 'squirrel']
 
 data = []  # создание пустого списка для хранения признаков и меток
 

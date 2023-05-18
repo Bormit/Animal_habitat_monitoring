@@ -5,13 +5,13 @@ import numpy as np
 
 # Создается список категорий (CATEGORIES), каждый элемент которого соответствует определенному классу животного.
 
-CATEGORIES = ['hedgehog', 'weasel']
+CATEGORIES = ['hen', 'horse', 'squirrel']
 
-ANIMAL_NAME = 'hedgehog'  # Тестирования заданого класса
+ANIMAL_NAME = 'squirrel'  # Тестирования заданого класса
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.03.30')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.05.12')
 
-MODEL_NAME = 'animals-prediction-23.03.30'
+MODEL_NAME = 'animals-prediction-23.05.12'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 
