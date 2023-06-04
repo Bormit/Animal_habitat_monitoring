@@ -6,7 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from tensorflow.keras.callbacks import TensorBoard
 
-neurons = 3
+neurons = 5
 
 func_activate = 'softmax'
 
@@ -62,7 +62,7 @@ try:
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
         # Обучаем модель
-        model.fit(X, y, epochs=5, validation_split=0.1, batch_size=32, callbacks=[tensorboard])
+        model.fit(X, y, epochs=10, validation_split=0.1, batch_size=32, callbacks=[tensorboard])
 
         # Сохраняем обученную модель в файл
         model.save(MODEL_DIR_NAME)

@@ -10,11 +10,11 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # Создается список категорий (CATEGORIES), каждый элемент которого соответствует определенному классу животного.
-CATEGORIES = ['hen', 'horse', 'squirrel']
+CATEGORIES = ['duck', 'grey_owl', 'hedgehog', 'spotted_woodpecker', 'weasel']
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.05.12')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.05.25')
 
-MODEL_NAME = 'animals-prediction-23.05.12'
+MODEL_NAME = 'animals-prediction-23.05.25'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 
@@ -69,16 +69,27 @@ def predict():
             else:
                 predicted_class_name = CATEGORIES[predicted_class_index]
                 # Результат предикта
-                print({'predicted_class': predicted_class_name})
-                return jsonify({"result": predicted_class_name})
-                # return jsonify({"result": "Hello "})
+                if signature == animal_translate(predicted_class_name):
+                    print({'predicted_class': animal_translate(predicted_class_name)})
+                    return jsonify({"result": animal_translate(predicted_class_name)})
+                else:
+                    print({'predicted_class': animal_translate(predicted_class_name)})
+                    return jsonify({"result": f"На фотографии не {signature}!"})
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
+def animal_translate(animal):
+    if animal == "duck":
+        return "Утка"
+    if animal == "grey_owl":
+        return "Рогатая сова"
+    if animal == "hedgehog":
+        return "Ёж"
+    if animal == "spotted_woodpecker":
+        return "Пёстрый дятел"
+    if animal == "weasel":
+        return "Ласка"
 
-# @app.route('/users', methods=['POST'])
-# def getUser():
-#     return jsonify({"result": "1"})
 
 
 @app.errorhandler(400)

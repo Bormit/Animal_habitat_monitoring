@@ -27,7 +27,7 @@ parser.add_argument('--output-dir', type=str, default='.', help='output director
 args = parser.parse_args()
 
 # список категорий изображений
-CATEGORIES = ['hen', 'horse', 'squirrel']
+CATEGORIES = ['duck', 'grey_owl', 'hedgehog', 'spotted_woodpecker', 'weasel']
 
 data = []  # создание пустого списка для хранения признаков и меток
 
@@ -62,37 +62,6 @@ try:
 except IOError:
     print("Error saving files X.pkl and y.pkl.")
 
-#
-# # цикл по категориям изображений
-# for category in CATEGORIES:
-#     # путь к директории с изображениями текущей категории
-#     path = os.path.join(DIRECTORY, category)
-#     # цикл по изображениям текущей категории с отображением прогресса выполнения
-#     for img in tqdm(os.listdir(path), desc=f'{index}) Classification {category}s...'):
-#         img_path = os.path.join(path, img)  # путь к текущему изображению
-#         label = CATEGORIES.index(category)  # метка класса изображения
-#         arr = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)  # загрузка изображения
-#         new_arr = cv2.resize(arr, (IMG_SIZE, IMG_SIZE))  # изменение размера изображения
-#         data.append([new_arr, label])  # добавление признаков и метки в список признаков и меток
-#         pass
-#     index += 1  # увеличение значения счетчика категорий
-#
-# # перемешивание списка признаков и меток случайным образом
-# random.shuffle(data)
-#
-# X = []  # создание пустого списка для хранения признаков
-# y = []  # создание пустого списка для хранения меток
-#
-# # цикл по списку признаков и меток
-# for features, label in data:
-#     X.append(features)  # добавление признаков в список признаков
-#     y.append(label)  # добавление меток в список меток
-#
-# X = np.array(X)  # преобразование списка признаков в массив NumPy
-# y = np.array(y)  # преобразование списка меток в массив NumPy
-#
-# # С помощью метода pickle.dump() сохраняем массивы X и y в два файла X.pkl и y.pkl соответственно:
-# pickle.dump(X, open('X.pkl', 'wb'))
-# pickle.dump(y, open('y.pkl', 'wb'))
+
 
 

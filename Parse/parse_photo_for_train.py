@@ -1,3 +1,3 @@
 from bing_image_downloader import downloader
 
-downloader.download("weasel the animal", limit=500,  output_dir='images')
+downloader.download("hedgehog the animal", limit=250,  output_dir='images')
