@@ -7,11 +7,11 @@ import numpy as np
 
 CATEGORIES = ['duck', 'grey_owl', 'hedgehog', 'spotted_woodpecker', 'weasel']
 
-ANIMAL_NAME = 'duck'  # Тестирования заданого класса
+ANIMAL_NAME = 'weasel'  # Тестирования заданого класса
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.06.04')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.06.06')
 
-MODEL_NAME = 'animals-prediction-23.06.04'
+MODEL_NAME = 'animals-prediction-23.06.06'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 

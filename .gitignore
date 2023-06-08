@@ -1,8 +1,8 @@
 /venv/
 .idea
 /Model/Train/images/
-/Model/Train/hedgehog/
-/Model/Train/weasel/
+/Parse/images/hedgehog/
+/Parse/images/weasel/
 /Model/logs/train/
 /Model/logs/validation/
 /Model/data/
@@ -12,6 +12,11 @@
 /Parse/images/hen/
 /Parse/images/horse/
 /Parse/images/squirrel/
+/Parse/images/duck/
+/Parse/images/grey_owl/
+/Parse/images/hedgehog/
+/Parse/images/spotted_woodpecker/
+/Parse/images/weasel/
 /Model/Train/duck/
 /Model/Train/grey_owl/
 /Model/Train/hedgehog/

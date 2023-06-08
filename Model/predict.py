@@ -12,9 +12,9 @@ app = Flask(__name__)
 # Создается список категорий (CATEGORIES), каждый элемент которого соответствует определенному классу животного.
 CATEGORIES = ['duck', 'grey_owl', 'hedgehog', 'spotted_woodpecker', 'weasel']
 
-CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.05.25')
+CURR_DIR = os.path.dirname('Save_model/animals-prediction-23.06.06_test')
 
-MODEL_NAME = 'animals-prediction-23.05.25'
+MODEL_NAME = 'animals-prediction-23.06.06_test'
 
 MODEL_PATH = os.path.join(CURR_DIR, MODEL_NAME)
 

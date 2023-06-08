@@ -1,3 +1,9 @@
-from bing_image_downloader import downloader
+from google_images_download import google_images_download   #importing the library
 
-downloader.download("hedgehog the animal", limit=250,  output_dir='images')
+chromedriver = "chromedriver.exe"
+response = google_images_download.googleimagesdownload()
+response.download({
+    "keywords": "weasel",
+    "size": "medium",
+    "limit": 500,
+    "chromedriver": chromedriver})
